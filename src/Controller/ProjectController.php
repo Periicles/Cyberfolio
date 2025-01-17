@@ -6,7 +6,9 @@ use App\Entity\Project;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -21,6 +23,9 @@ final class ProjectController extends AbstractController{
         ]);
     }
 
+    /**
+     * @throws Exception
+     */
     #[Route('/new', name: 'app_project_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -29,10 +34,26 @@ final class ProjectController extends AbstractController{
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $screenshotFile = $form->get('screenshot')->getData();
+
+            if ($screenshotFile) {
+                $newFilename = uniqid() . '.' . $screenshotFile->guessExtension();
+
+                try {
+                    $screenshotFile->move(
+                        $this->getParameter('screenshots_directory'),
+                        $newFilename
+                    );
+                    $project->setScreenshot($newFilename);
+                } catch (FileException $e) {
+                    throw new Exception('Failed to upload file.');
+                }
+            }
+
             $entityManager->persist($project);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_project_index');
         }
 
         return $this->render('project/new.html.twig', [
@@ -40,6 +61,7 @@ final class ProjectController extends AbstractController{
             'form' => $form,
         ]);
     }
+
 
     #[Route('/{id}', name: 'app_project_show', methods: ['GET'])]
     public function show(Project $project): Response
@@ -70,11 +92,16 @@ final class ProjectController extends AbstractController{
     #[Route('/{id}', name: 'app_project_delete', methods: ['POST'])]
     public function delete(Request $request, Project $project, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$project->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $project->getId(), $request->request->get('_token'))) {
+            if ($project->getScreenshot()) {
+                unlink($this->getParameter('screenshots_directory') . '/' . $project->getScreenshot());
+            }
+
             $entityManager->remove($project);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_project_index');
     }
+
 }
