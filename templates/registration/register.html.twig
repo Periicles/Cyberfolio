@@ -1,14 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Inscription{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword) }}
-        {{ form_row(registrationForm.firstname) }}
-        {{ form_row(registrationForm.lastname) }}
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+    <h1>Inscription</h1>
+
+    <div class="form-container">
+        {{ form_start(registrationForm, {'attr': {'class': 'registration-form'}}) }}
+
+        <div class="form-group">
+            {{ form_label(registrationForm.email, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(registrationForm.email) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(registrationForm.plainPassword, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(registrationForm.plainPassword) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(registrationForm.firstname, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(registrationForm.firstname, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(registrationForm.firstname) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(registrationForm.lastname, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(registrationForm.lastname, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(registrationForm.lastname) }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">S'inscrire</button>
+
+        {{ form_end(registrationForm) }}
+    </div>
 {% endblock %}

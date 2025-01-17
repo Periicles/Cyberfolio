@@ -19,8 +19,8 @@
                 <td>{{ profile.id }}</td>
                 <td>{{ profile.etc }}</td>
                 <td>
-                    <a href="{{ path('app_profile_show', {'id': profile.id}) }}">show</a>
-                    <a href="{{ path('app_profile_edit', {'id': profile.id}) }}">edit</a>
+                    <a href="{{ path('app_profile_show', {'id': profile.id}) }}">Voir</a>
+                    <a href="{{ path('app_profile_edit', {'id': profile.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -31,5 +31,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_profile_new') }}">Create new</a>
+    <a href="{{ path('app_profile_new') }}">Nouveau</a>
 {% endblock %}

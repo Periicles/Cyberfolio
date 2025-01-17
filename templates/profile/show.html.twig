@@ -18,9 +18,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_profile_index') }}">back to list</a>
+    <a href="{{ path('app_homepage') }}">Retour</a>
 
-    <a href="{{ path('app_profile_edit', {'id': profile.id}) }}">edit</a>
+    <a href="{{ path('app_profile_edit', {'id': profile.id}) }}">Modifier</a>
 
     {{ include('profile/_delete_form.html.twig') }}
 {% endblock %}

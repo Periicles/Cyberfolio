@@ -20,10 +20,9 @@ class TechnologyType extends AbstractType
             ->add('etc')
             ->add('projects', EntityType::class, [
                 'class' => Project::class,
-'choice_label' => 'id',
-'multiple' => true,
-            ])
-        ;
+                'choice_label' => 'id',
+                'multiple' => true,
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -17,10 +17,14 @@ class ProjectType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title')
-            ->add('description')
+            ->add('title', null, [
+                'label' => 'Titre'
+            ])
+            ->add('description', null, [
+                'label' => 'Description'
+            ])
             ->add('screenshot', FileType::class, [
-                'label' => 'Upload Screenshot (PNG, JPEG)',
+                'label' => 'Screenshot (PNG, JPEG)',
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
@@ -30,21 +34,25 @@ class ProjectType extends AbstractType
                             'image/jpeg',
                             'image/png',
                         ],
-                        'mimeTypesMessage' => 'Please upload a valid image (JPEG or PNG).',
+                        'mimeTypesMessage' => 'Les formats autorisés sont JPEG et PNG.',
                     ])
                 ],
             ])
-            ->add('etc')
+            ->add('etc', null, [
+                'label' => 'Description'
+            ])
 //            ->add('technologies', EntityType::class, [
 //                'class' => Technology::class,
 //                'choice_label' => 'id',
 //                'multiple' => true,
 //            ])
             ->add('user', EntityType::class, [
+                'label' => 'Utilisateur',
                 'class' => User::class,
-                'choice_label' => 'id',
+                'choice_label' => 'email',
             ])
             ->add('created_at', null, [
+                'label' => 'Date de création',
                 'widget' => 'single_text'
             ]);
     }

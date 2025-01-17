@@ -28,13 +28,13 @@
                     {% if project.screenshot %}
                         <img src="{{ asset('upload/screenshots/' ~ project.screenshot) }}" alt="Screenshot of {{ project.title }}" style="max-width: 100px;">
                     {% else %}
-                        No screenshot
+                        Pas de screenshot
                     {% endif %}
                 </td>
                 <td>{{ project.etc }}</td>
                 <td>
-                    <a href="{{ path('app_project_show', {'id': project.id}) }}">show</a>
-                    <a href="{{ path('app_project_edit', {'id': project.id}) }}">edit</a>
+                    <a href="{{ path('app_project_show', {'id': project.id}) }}">Voir</a>
+                    <a href="{{ path('app_project_edit', {'id': project.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -45,5 +45,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_project_new') }}">Create new</a>
+    <a href="{{ path('app_project_new') }}">Nouveau</a>
 {% endblock %}
