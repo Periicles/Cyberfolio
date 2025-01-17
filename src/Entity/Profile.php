@@ -13,7 +13,7 @@ class Profile
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $etc = null;
 
     #[ORM\OneToOne(mappedBy: 'profile', cascade: ['persist', 'remove'])]

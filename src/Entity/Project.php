@@ -27,7 +27,7 @@ class Project
     #[ORM\Column(length: 255)]
     private ?string $screenshot = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $etc = null;
 
     /**

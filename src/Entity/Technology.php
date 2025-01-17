@@ -24,7 +24,7 @@ class Technology
     #[ORM\Column(length: 20)]
     private ?string $version = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 50, nullable: true)]
     private ?string $etc = null;
 
     /**
