@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block body %}
+    <h1>Bienvenue sur le Cyberfolio</h1>
+    <p>Le Cyberfolio est une application web qui permet de gérer des projets et des utilisateurs.</p>
+    <p>Vous pouvez accéder aux utilisateurs et à leur différents projets en cliquant sur les liens ci-dessous.</p>
+
+    <h2>Utilisateurs</h2>
+    <ul>
+        {% for user in users %}
+            <li>
+                <a href="{{ path('app_user_show', { id: user.id }) }}" style="text-decoration: none; color: #007bff;">
+                    {{ user.firstname }} {{ user.lastname }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

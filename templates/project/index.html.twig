@@ -24,7 +24,13 @@
                 <td>{{ project.title }}</td>
                 <td>{{ project.createdAt ? project.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ project.description }}</td>
-                <td>{{ project.screenshot }}</td>
+                <td>
+                    {% if project.screenshot %}
+                        <img src="{{ asset('upload/screenshots/' ~ project.screenshot) }}" alt="Screenshot of {{ project.title }}" style="max-width: 100px;">
+                    {% else %}
+                        No screenshot
+                    {% endif %}
+                </td>
                 <td>{{ project.etc }}</td>
                 <td>
                     <a href="{{ path('app_project_show', {'id': project.id}) }}">show</a>

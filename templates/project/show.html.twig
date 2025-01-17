@@ -24,8 +24,14 @@
                 <td>{{ project.description }}</td>
             </tr>
             <tr>
-                <th>Screenshot</th>
-                <td>{{ project.screenshot }}</td>
+                {% if project.screenshot %}
+                    <p>
+                        <strong>Screenshot:</strong>
+                        <img src="{{ asset('upload/screenshots/' ~ project.screenshot) }}" alt="Screenshot of {{ project.title }}" style="max-width: 400px;">
+                    </p>
+                {% else %}
+                    <p>No screenshot available.</p>
+                {% endif %}
             </tr>
             <tr>
                 <th>Etc</th>
